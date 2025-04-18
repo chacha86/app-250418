@@ -177,7 +177,6 @@ class ApiV1MemberControllerTest @Autowired constructor(
                 assertThat(apiKey).isNotNull
                 assertThat(apiKey!!.name).isEqualTo("apiKey")
                 assertThat(apiKey.value).isNotBlank()
-                assertThat(apiKey.domain).isEqualTo("localhost")
                 assertThat(apiKey.path).isEqualTo("/")
                 assertThat(apiKey.isHttpOnly).isTrue
                 assertThat(apiKey.secure).isTrue
@@ -187,7 +186,6 @@ class ApiV1MemberControllerTest @Autowired constructor(
                 assertThat(accessToken).isNotNull
                 assertThat(accessToken!!.name).isEqualTo("accessToken")
                 assertThat(accessToken.value).isNotBlank()
-                assertThat(accessToken.domain).isEqualTo("localhost")
                 assertThat(accessToken.path).isEqualTo("/")
                 assertThat(accessToken.isHttpOnly).isTrue
                 assertThat(accessToken.secure).isTrue

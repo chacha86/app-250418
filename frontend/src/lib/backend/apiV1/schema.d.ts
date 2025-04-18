@@ -363,8 +363,8 @@ export interface components {
             metadata: string;
             fileDateDir: string;
             filePath: string;
-            publicUrl: string;
             downloadUrl: string;
+            publicUrl: string;
             /** Format: int64 */
             id: number;
             modelName: string;
