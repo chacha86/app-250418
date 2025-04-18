@@ -62,7 +62,7 @@ class Rq(
 
         if(domain == "localhost") return "localhost"
 
-        return ".$domain"
+        return domain
     }
 
     fun addCookie(name: String?, value: String?) {
