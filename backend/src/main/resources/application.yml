@@ -71,10 +71,11 @@ springdoc:
 
 
 custom:
+  appName: app4
   prod:
-    domain: app4.qwas.shop
-    backUrl: "https://api.${custom.prod.domain}"
-    frontUrl: "https://www.${custom.prod.domain}"
+    domain: qwas.shop
+    backUrl: "https://api.${custom.appName}.${custom.prod.domain}"
+    frontUrl: "https://www.${custom.appName}.${custom.prod.domain}"
 
   dev:
     domain: localhost
@@ -85,7 +86,8 @@ custom:
     domain: "${custom.prod.domain}"
     backUrl: "${custom.prod.backUrl}"
     frontUrl: "${custom.prod.frontUrl}"
+
   jwt:
-    expire-seconds: "#{5}"
+    expire-seconds: "#{60 * 30}"
   genFile:
     dirPath: c:/temp/glog_dev
