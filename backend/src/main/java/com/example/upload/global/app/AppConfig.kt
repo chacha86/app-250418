@@ -1,7 +1,6 @@
 package com.example.upload.global.app
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import lombok.SneakyThrows
 import org.apache.tika.Tika
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
@@ -18,6 +17,7 @@ class AppConfig {
         private lateinit var environment: Environment
         private lateinit var siteBackUrl: String
         private lateinit var siteFrontUrl: String
+        private lateinit var domain:String
         private lateinit var springServletMultipartMaxFileSize: String
         private lateinit var springServletMultipartMaxRequestSize: String
         private lateinit var tika: Tika
@@ -30,6 +30,8 @@ class AppConfig {
         fun getSiteBackUrl(): String = siteBackUrl
         
         fun getSiteFrontUrl(): String = siteFrontUrl
+
+        fun getDomain(): String = domain
         
         fun getSpringServletMultipartMaxFileSize(): String = springServletMultipartMaxFileSize
         
@@ -81,6 +83,11 @@ class AppConfig {
     @Value("\${custom.site.frontUrl}")
     fun setSiteFrontUrl(siteFrontUrl: String) {
         Companion.siteFrontUrl = siteFrontUrl
+    }
+
+    @Value("\${custom.site.domain}")
+    fun setDomain(domain: String) {
+        Companion.domain = domain
     }
 
     @Autowired

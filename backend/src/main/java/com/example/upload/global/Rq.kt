@@ -2,6 +2,7 @@ package com.example.upload.global
 
 import com.example.upload.domain.member.member.entity.Member
 import com.example.upload.domain.member.member.service.MemberService
+import com.example.upload.global.app.AppConfig
 import com.example.upload.global.exception.ServiceException
 import com.example.upload.global.security.SecurityUser
 import jakarta.servlet.http.Cookie
@@ -56,10 +57,18 @@ class Rq(
         return request.cookies?.firstOrNull { it.name == name }?.value
     }
 
+    private fun cookieDomain(): String {
+        val domain = AppConfig.getDomain()
+
+        if(domain == "localhost") return "localhost"
+
+        return ".$domain"
+    }
+
     fun addCookie(name: String?, value: String?) {
         Cookie(name, value)
             .apply {
-                domain = "localhost"
+                domain = cookieDomain() // app4.qwas.shop
                 path = "/"
                 isHttpOnly = true
                 secure = true
@@ -78,7 +87,7 @@ class Rq(
 
         Cookie(name, null)
             .apply {
-                domain = "localhost"
+                domain = cookieDomain()
                 path = "/"
                 isHttpOnly = true
                 secure = true
