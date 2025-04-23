@@ -21,7 +21,7 @@ class HomeController {
             "${it.hostName}(${it.hostAddress})"
         }
 
-        return "<h1>API 서버에 오신 걸 환영합니다. on ${hostName}!</h1>"
+        return "<h1>API 서버에 오신 걸 환영합니다. on ${hostName}!!!!!!</h1>"
     }
 
     @GetMapping("/session")
