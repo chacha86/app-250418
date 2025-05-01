@@ -18,15 +18,16 @@ export default function LoginForm({
 
     const form = e.target as HTMLFormElement;
 
-    const username = form.username.value;
-    const password = form.password.value;
+    const formData = new FormData(form);
+    const username = formData.get(nameKey);
+    const password = formData.get(passKey);
 
-    if (username.trim().length === 0) {
+    if (username?.toString().trim().length === 0) {
       toast.error("아이디를 입력해주세요.");
       return;
     }
 
-    if (password.trim().length === 0) {
+    if (password?.toString().trim().length === 0) {
       toast.error("패스워드를 입력해주세요.");
       return;
     }
