@@ -1,8 +1,5 @@
 "use client";
 
-import { LoginMemberContext } from "@/stores/auth/loginMemberStore";
-import { useRouter } from "next/navigation";
-import { use } from "react";
 import { toast, Toaster } from "sonner";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -16,8 +13,6 @@ export default function LoginForm({
   nameKey: string;
   passKey: string;
 }) {
-  const router = useRouter();
-  const { setLoginMember } = use(LoginMemberContext);
   async function login(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
