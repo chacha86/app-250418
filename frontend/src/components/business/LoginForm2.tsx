@@ -1,6 +1,5 @@
 "use client";
 
-import { client } from "@/lib/backend/client";
 import { LoginMemberContext } from "@/stores/auth/loginMemberStore";
 import { useRouter } from "next/navigation";
 import { use } from "react";
@@ -8,7 +7,15 @@ import { toast, Toaster } from "sonner";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 
-export default function LoginForm() {
+export default function LoginForm({
+  url,
+  nameKey,
+  passKey,
+}: {
+  url: string;
+  nameKey: string;
+  passKey: string;
+}) {
   const router = useRouter();
   const { setLoginMember } = use(LoginMemberContext);
   async function login(e: React.FormEvent<HTMLFormElement>) {
@@ -29,22 +36,34 @@ export default function LoginForm() {
       return;
     }
 
-    const response = await client.POST("/api/v1/members/login", {
-      body: {
-        username,
-        password,
-      },
-      credentials: "include",
+    // const response = await client.POST("/api/v1/members/login", {
+    //   body: {
+    //     username,
+    //     password,
+    //   },
+    //   credentials: "include",
+    // });
+
+    // if (response.error) {
+    //   toast.error(response.error.msg);
+    //   return;
+    // }
+
+    const response = await fetch(url, {
+      method: "POST",
+      body: JSON.stringify({
+        [nameKey]: username,
+        [passKey]: password,
+      }),
     });
 
-    if (response.error) {
-      toast.error(response.error.msg);
-      return;
+    if (response.ok) {
+      toast.success("로그인 성공");
+      const data = await response.json();
+      console.log(data);
+    } else {
+      toast.error("로그인 실패");
     }
-
-    toast.success(response.data.msg);
-    setLoginMember(response.data.data.item);
-    router.replace("/");
   }
 
   return (
