@@ -9,21 +9,30 @@ export default function ApiCheckForm() {
     e.preventDefault();
 
     try {
-      const response = await fetch(url, {
+      const requestOptions: RequestInit = {
         method: method,
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
-        body: requestBody,
-      });
+      };
 
+      // GET과 DELETE가 아닐 때만 body 추가
+      if (!["GET", "DELETE"].includes(method)) {
+        requestOptions.body = requestBody;
+      }
+
+      const response = await fetch(url, requestOptions);
       const data = await response.json();
       console.log("Response:", data);
     } catch (error) {
       console.error("Error:", error);
     }
   };
+
+  // GET과 DELETE 메서드인지 확인하는 함수
+  const isMethodWithoutBody = (method: string) =>
+    ["GET", "DELETE"].includes(method);
 
   return (
     <div className="container">
@@ -50,15 +59,17 @@ export default function ApiCheckForm() {
           />
         </div>
 
-        <div className="form-group">
-          <label>Request Body:</label>
-          <textarea
-            value={requestBody}
-            onChange={(e) => setRequestBody(e.target.value)}
-            placeholder="Enter JSON request body"
-            rows={10}
-          />
-        </div>
+        {!isMethodWithoutBody(method) && (
+          <div className="form-group">
+            <label>Request Body:</label>
+            <textarea
+              value={requestBody}
+              onChange={(e) => setRequestBody(e.target.value)}
+              placeholder="Enter JSON request body"
+              rows={10}
+            />
+          </div>
+        )}
 
         <button type="submit">Send Request</button>
       </form>
