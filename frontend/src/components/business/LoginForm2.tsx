@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { toast, Toaster } from "sonner";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -17,6 +18,7 @@ export default function LoginForm({
   nameValue: string;
   passValue: string;
 }) {
+  const router = useRouter();
   async function login(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
@@ -65,6 +67,7 @@ export default function LoginForm({
       toast.success("로그인 성공");
       const data = await response.json();
       console.log(data);
+      router.push("/team");
     } else {
       toast.error("로그인 실패");
     }
