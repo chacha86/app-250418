@@ -7,11 +7,11 @@ export default function ClinetPage() {
     <>
       <div>회원 로그인 페이지</div>
       <LoginForm2
-        url="http://api.main.ticketone.site:9000/api/v1/users/login"
+        url="https://api.deploy.kkokkio.site/api/v1/auth/login"
         nameKey="email"
-        passKey="password"
-        nameValue="test@test.com"
-        passValue="test"
+        passKey="passwordHash"
+        nameValue="user1@example.com"
+        passValue="password123!"
       />
     </>
   );
