@@ -1,9 +1,15 @@
 import { FormEvent, useState } from "react";
 
+interface Header {
+  key: string;
+  value: string;
+}
+
 export default function ApiCheckForm() {
   const [url, setUrl] = useState("");
   const [requestBody, setRequestBody] = useState("");
   const [method, setMethod] = useState("POST");
+  const [headers, setHeaders] = useState<Header[]>([{ key: "", value: "" }]);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -14,6 +20,12 @@ export default function ApiCheckForm() {
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
+          ...headers.reduce((acc, { key, value }) => {
+            if (key && value) {
+              acc[key] = value;
+            }
+            return acc;
+          }, {} as Record<string, string>),
         },
       };
 
@@ -33,6 +45,25 @@ export default function ApiCheckForm() {
   // GET과 DELETE 메서드인지 확인하는 함수
   const isMethodWithoutBody = (method: string) =>
     ["GET", "DELETE"].includes(method);
+
+  const handleHeaderChange = (
+    index: number,
+    field: keyof Header,
+    value: string
+  ) => {
+    const newHeaders = [...headers];
+    newHeaders[index] = { ...newHeaders[index], [field]: value };
+    setHeaders(newHeaders);
+  };
+
+  const addHeader = () => {
+    setHeaders([...headers, { key: "", value: "" }]);
+  };
+
+  const removeHeader = (index: number) => {
+    const newHeaders = headers.filter((_, i) => i !== index);
+    setHeaders(newHeaders);
+  };
 
   return (
     <div className="container">
@@ -57,6 +88,40 @@ export default function ApiCheckForm() {
             onChange={(e) => setUrl(e.target.value)}
             placeholder="Enter API URL"
           />
+        </div>
+
+        <div className="form-group">
+          <label>Headers:</label>
+          {headers.map((header, index) => (
+            <div key={index} className="header-row">
+              <input
+                type="text"
+                value={header.key}
+                onChange={(e) =>
+                  handleHeaderChange(index, "key", e.target.value)
+                }
+                placeholder="Header key"
+              />
+              <input
+                type="text"
+                value={header.value}
+                onChange={(e) =>
+                  handleHeaderChange(index, "value", e.target.value)
+                }
+                placeholder="Header value"
+              />
+              <button
+                type="button"
+                onClick={() => removeHeader(index)}
+                className="remove-button"
+              >
+                Remove
+              </button>
+            </div>
+          ))}
+          <button type="button" onClick={addHeader} className="add-button">
+            Add Header
+          </button>
         </div>
 
         {!isMethodWithoutBody(method) && (
@@ -122,7 +187,42 @@ export default function ApiCheckForm() {
           resize: vertical;
         }
 
-        button {
+        .header-row {
+          display: flex;
+          gap: 0.5rem;
+          margin-bottom: 0.5rem;
+        }
+
+        .header-row input {
+          flex: 1;
+        }
+
+        .remove-button,
+        .add-button {
+          background-color: #dc3545;
+          color: white;
+          border: none;
+          padding: 0.5rem 1rem;
+          border-radius: 4px;
+          font-size: 0.875rem;
+          cursor: pointer;
+          transition: background-color 0.2s;
+        }
+
+        .add-button {
+          background-color: #28a745;
+          margin-top: 0.5rem;
+        }
+
+        .remove-button:hover {
+          background-color: #c82333;
+        }
+
+        .add-button:hover {
+          background-color: #218838;
+        }
+
+        button[type="submit"] {
           background-color: #0070f3;
           color: white;
           border: none;
@@ -133,7 +233,7 @@ export default function ApiCheckForm() {
           transition: background-color 0.2s;
         }
 
-        button:hover {
+        button[type="submit"]:hover {
           background-color: #0051cc;
         }
       `}</style>
