@@ -10,6 +10,8 @@ export default function ClinetPage() {
         url="https://api.devapi.store/api/v1/auth/login"
         nameKey="email"
         passKey="password"
+        nameValue="example@example.com"
+        passValue="password1!"
       />
     </>
   );

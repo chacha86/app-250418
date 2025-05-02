@@ -10,6 +10,8 @@ export default function ClinetPage() {
         url="https://api.team2.pick-go.shop/api/members/login"
         nameKey="email"
         passKey="password"
+        nameValue="test@example.com"
+        passValue="1234"
       />
     </>
   );

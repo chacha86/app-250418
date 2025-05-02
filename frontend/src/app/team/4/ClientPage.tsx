@@ -10,6 +10,8 @@ export default function ClinetPage() {
         url="http://api.main.ticketone.site:9000/api/v1/users/login"
         nameKey="email"
         passKey="password"
+        nameValue="test@test.com"
+        passValue="test"
       />
     </>
   );

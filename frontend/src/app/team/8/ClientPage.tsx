@@ -10,6 +10,8 @@ export default function ClinetPage() {
         url="https://api.un1hub.site/api/members/login"
         nameKey="email"
         passKey="password"
+        nameValue="haneulkim@auni.ac.kr"
+        passValue="studentPw"
       />
     </>
   );

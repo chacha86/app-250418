@@ -10,6 +10,8 @@ export default function ClinetPage() {
         url="https://api.zzirit.shop/api/auth/basic/login"
         nameKey="username"
         passKey="password"
+        nameValue="kces0822@gmail.com"
+        passValue="chaeeun3197"
       />
     </>
   );

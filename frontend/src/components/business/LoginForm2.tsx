@@ -8,10 +8,14 @@ export default function LoginForm({
   url,
   nameKey,
   passKey,
+  nameValue,
+  passValue,
 }: {
   url: string;
   nameKey: string;
   passKey: string;
+  nameValue: string;
+  passValue: string;
 }) {
   async function login(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -76,6 +80,7 @@ export default function LoginForm({
             placeholder="이메일을 입력해주세요"
             autoComplete="off"
             autoFocus
+            defaultValue={nameValue}
           />
         </div>
         <div className="flex flex-col gap-2">
@@ -84,6 +89,7 @@ export default function LoginForm({
             type="password"
             name="password"
             placeholder="비밀번호를 입력해주세요"
+            defaultValue={passValue}
           />
         </div>
         <Button type="submit" className="mt-2">
