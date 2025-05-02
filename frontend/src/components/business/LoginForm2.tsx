@@ -77,7 +77,7 @@ export default function LoginForm({
           <label className="font-medium">아이디</label>
           <Input
             type="text"
-            name="email"
+            name={nameKey}
             placeholder="이메일을 입력해주세요"
             autoComplete="off"
             autoFocus
@@ -88,7 +88,7 @@ export default function LoginForm({
           <label className="font-medium">비밀번호</label>
           <Input
             type="password"
-            name="password"
+            name={passKey}
             placeholder="비밀번호를 입력해주세요"
             defaultValue={passValue}
           />
