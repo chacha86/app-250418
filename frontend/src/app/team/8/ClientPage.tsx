@@ -7,7 +7,7 @@ export default function ClinetPage() {
     <>
       <div>회원 로그인 페이지</div>
       <LoginForm2
-        url="http://api.main.ticketone.site:9000/api/v1/users/login"
+        url="https://api.un1hub.site/api/members/login"
         nameKey="email"
         passKey="password"
       />
